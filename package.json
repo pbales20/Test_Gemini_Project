@@ -1,0 +1,30 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx tsc --noEmit",
+    "test:api": "tsx scripts/test-api.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbales20/Test_Gemini_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pbales20/Test_Gemini_Project/issues"
+  },
+  "homepage": "https://github.com/pbales20/Test_Gemini_Project#readme",
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "dotenv": "^17.3.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
