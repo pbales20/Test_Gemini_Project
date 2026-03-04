@@ -38,6 +38,16 @@ The database schema is defined in `supabase/migrations/schema.sql`. You have two
 The logic to fetch teams, games, and betting lines from CFBD is located in `src/lib/api.ts`.
 You can use the exported functions (`getTeams`, `getGames`, `getLines`, `syncScoresAndSpreads`) in your Next.js API routes or Server Components.
 
+### Testing the API Integration
+
+You can easily test the API fetching logic using the included script. Once your `.env.local` is set up with a valid `CFBD_API_KEY`, run:
+
+```bash
+npm run test:api
+```
+
+This will run the `scripts/test-api.ts` script to fetch basic team and schedule data to verify your API connection is working.
+
 ### Running TypeScript Validation
 
 To ensure the codebase has no TypeScript errors, run:
