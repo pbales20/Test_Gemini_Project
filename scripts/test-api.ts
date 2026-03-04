@@ -7,7 +7,7 @@ dotenv.config({ path: '.env.local' });
 async function testAPI() {
   console.log('Testing CFBD API Integration...');
 
-  const apiKey = process.env.CFBD_API_KEY || process.env.NEXT_PUBLIC_CFBD_API_KEY;
+  const apiKey = process.env.CFBD_API_KEY;
 
   if (!apiKey) {
     console.error('❌ Error: No CFBD_API_KEY found in .env.local');
