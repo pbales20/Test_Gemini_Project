@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx tsc --noEmit",
+    "test": "node --experimental-strip-types --test src/lib/api.test.ts",
     "test:api": "tsx scripts/test-api.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-    "test:api": "tsx scripts/test-api.ts"
+    "lint": "next lint",
+    "typecheck": "npx tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/pbales20/Test_Gemini_Project/issues"
   },
@@ -40,7 +39,5 @@
     "next": "^16.1.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
   }
 }
