@@ -5,6 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npx tsc --noEmit",
+    "test:api": "tsx scripts/test-api.ts",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
     "test:api": "tsx scripts/test-api.ts"
   },
   "repository": {
@@ -14,16 +19,27 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/pbales20/Test_Gemini_Project/issues"
   },
   "homepage": "https://github.com/pbales20/Test_Gemini_Project#readme",
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "dotenv": "^17.3.1",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }

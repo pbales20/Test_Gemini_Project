@@ -48,6 +48,16 @@ npm run test:api
 
 This will run the `scripts/test-api.ts` script to fetch basic team and schedule data to verify your API connection is working.
 
+### Running the Portal in Codespaces
+
+To start the local development server (the Next.js frontend "portal"), open your Codespaces terminal and run:
+
+```bash
+npm run dev
+```
+
+Codespaces will automatically detect the server running on port 3000. It will show a small popup or notification allowing you to "Open in Browser", or you can navigate to the "Ports" tab in your VS Code / Codespaces interface and click the globe icon next to port 3000 to view the portal.
+
 ### Running TypeScript Validation
 
 To ensure the codebase has no TypeScript errors, run:
