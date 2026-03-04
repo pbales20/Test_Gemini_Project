@@ -2,9 +2,9 @@
 
 const API_BASE_URL = 'https://api.collegefootballdata.com';
 
-// Add the token in .env.local like NEXT_PUBLIC_CFBD_API_KEY
+// Add the token in .env.local like CFBD_API_KEY
 const getHeaders = () => {
-  const apiKey = process.env.CFBD_API_KEY || process.env.NEXT_PUBLIC_CFBD_API_KEY;
+  const apiKey = process.env.CFBD_API_KEY;
   if (!apiKey) {
     console.warn('Warning: CFBD_API_KEY is not defined. API requests may fail.');
   }

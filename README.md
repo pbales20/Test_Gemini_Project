@@ -24,7 +24,6 @@ SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
 # CollegeFootballData.com API Key
 CFBD_API_KEY=your_cfbd_api_key
-NEXT_PUBLIC_CFBD_API_KEY=your_cfbd_api_key_if_fetching_from_client # (Optional, depending on implementation)
 ```
 
 ### Initializing the Database
