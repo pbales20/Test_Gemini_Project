@@ -6,6 +6,11 @@
       "dom.iterable",
       "esnext"
     ],
+
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -37,4 +42,9 @@
   "exclude": [
     "node_modules"
   ]
+    "jsx": "preserve",
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
