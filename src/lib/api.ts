@@ -14,54 +14,48 @@ const getHeaders = () => {
   };
 };
 
-export async function getTeams() {
+async function apiFetch<T>(endpoint: string, options: { revalidate?: number; errorPrefix?: string } = {}): Promise<T> {
+  const { revalidate = 3600, errorPrefix = 'API Error' } = options;
   try {
-    const res = await fetch(`${API_BASE_URL}/teams/fbs?year=${new Date().getFullYear()}`, {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
       headers: getHeaders(),
-      next: { revalidate: 86400 }, // Cache for a day
+      next: { revalidate },
     });
-    if (!res.ok) throw new Error(`Failed to fetch teams: ${res.status} ${res.statusText}`);
+    if (!res.ok) throw new Error(`${errorPrefix}: ${res.status} ${res.statusText}`);
     return await res.json();
   } catch (error) {
-    console.error('Error fetching teams:', error);
+    console.error(`${errorPrefix}:`, error);
     throw error;
   }
+}
+
+export async function getTeams() {
+  return apiFetch<any[]>(`/teams/fbs?year=${new Date().getFullYear()}`, {
+    revalidate: 86400,
+    errorPrefix: 'Error fetching teams',
+  });
 }
 
 export async function getGames(season: number, seasonType: string = 'regular', team?: string) {
-  try {
-    let url = `${API_BASE_URL}/games?year=${season}&seasonType=${seasonType}`;
-    if (team) {
-      url += `&team=${encodeURIComponent(team)}`;
-    }
-    const res = await fetch(url, {
-      headers: getHeaders(),
-      next: { revalidate: 3600 }, // Cache for an hour
-    });
-    if (!res.ok) throw new Error(`Failed to fetch games: ${res.status} ${res.statusText}`);
-    return await res.json();
-  } catch (error) {
-    console.error('Error fetching games:', error);
-    throw error;
+  let endpoint = `/games?year=${season}&seasonType=${seasonType}`;
+  if (team) {
+    endpoint += `&team=${encodeURIComponent(team)}`;
   }
+  return apiFetch<any[]>(endpoint, {
+    revalidate: 3600,
+    errorPrefix: 'Error fetching games',
+  });
 }
 
 export async function getLines(season: number, week?: number, seasonType: string = 'regular', team?: string) {
-  try {
-    let url = `${API_BASE_URL}/lines?year=${season}&seasonType=${seasonType}`;
-    if (week) url += `&week=${week}`;
-    if (team) url += `&team=${encodeURIComponent(team)}`;
+  let endpoint = `/lines?year=${season}&seasonType=${seasonType}`;
+  if (week) endpoint += `&week=${week}`;
+  if (team) endpoint += `&team=${encodeURIComponent(team)}`;
 
-    const res = await fetch(url, {
-      headers: getHeaders(),
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) throw new Error(`Failed to fetch lines: ${res.status} ${res.statusText}`);
-    return await res.json();
-  } catch (error) {
-    console.error('Error fetching lines:', error);
-    throw error;
-  }
+  return apiFetch<any[]>(endpoint, {
+    revalidate: 3600,
+    errorPrefix: 'Error fetching lines',
+  });
 }
 
 /**
