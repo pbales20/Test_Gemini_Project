@@ -73,20 +73,17 @@ export async function syncScoresAndSpreads(season: number) {
   try {
     console.log(`Starting sync for season ${season}...`);
 
-    // 1. Fetch FBS teams (could be updated yearly)
-    const teams = await getTeams();
+    // Fetch FBS teams, games, lines, and Baylor specific games concurrently
+    const [teams, games, lines, baylorGames] = await Promise.all([
+      getTeams(),
+      getGames(season),
+      getLines(season),
+      getGames(season, 'regular', 'Baylor')
+    ]);
+
     console.log(`Fetched ${teams.length} FBS teams.`);
-
-    // 2. Fetch all games for the season
-    const games = await getGames(season);
     console.log(`Fetched ${games.length} games for season ${season}.`);
-
-    // 3. Fetch all betting lines for the season
-    const lines = await getLines(season);
     console.log(`Fetched lines for ${lines.length} games.`);
-
-    // 4. Fetch Baylor specific games to easily identify them
-    const baylorGames = await getGames(season, 'regular', 'Baylor');
     console.log(`Fetched ${baylorGames.length} Baylor games.`);
 
     // In a full implementation, the logic below would involve:
