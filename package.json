@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx tsc --noEmit",
+    "test": "node --experimental-strip-types --test src/lib/api.test.ts",
+    "test:api": "tsx scripts/test-api.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:api": "tsx scripts/test-api.ts"
+    "typecheck": "npx tsc --noEmit"
   },
   "repository": {
     "type": "git",
