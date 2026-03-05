@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npx tsc --noEmit",
-    "test:api": "tsx scripts/test-api.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:api": "tsx scripts/test-api.ts"
   },
   "repository": {
     "type": "git",
