@@ -17,7 +17,34 @@ create policy "Users can insert their own profile."
   with check ( auth.uid() = id );
 create policy "Users can update own profile."
   on profiles for update
-  using ( auth.uid() = id );
+  using ( auth.uid() = id )
+  with check ( auth.uid() = id );
+
+-- Prevent users from modifying total_points and other sensitive fields
+create or replace function public.handle_profile_update()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if (auth.role() = 'authenticated') then
+    if (
+      new.total_points is distinct from old.total_points or
+      new.id is distinct from old.id or
+      new.email is distinct from old.email or
+      new.created_at is distinct from old.created_at
+    ) then
+      raise exception 'Modification of restricted profile fields is not allowed';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+create trigger on_profile_update
+  before update on public.profiles
+  for each row execute function public.handle_profile_update();
 
 
 -- teams table (sourced from CFBD API)
@@ -56,7 +83,32 @@ create policy "Users can insert own draft picks."
   with check ( auth.uid() = user_id );
 create policy "Users can update own draft picks."
   on user_draft_picks for update
-  using ( auth.uid() = user_id );
+  using ( auth.uid() = user_id )
+  with check ( auth.uid() = user_id );
+
+-- Prevent users from modifying user_id and other sensitive fields
+create or replace function public.handle_user_draft_picks_update()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if (auth.role() = 'authenticated') then
+    if (
+      new.user_id is distinct from old.user_id or
+      new.created_at is distinct from old.created_at
+    ) then
+      raise exception 'Modification of restricted draft pick fields is not allowed';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+create trigger on_user_draft_picks_update
+  before update on public.user_draft_picks
+  for each row execute function public.handle_user_draft_picks_update();
 create policy "Users can delete own draft picks."
   on user_draft_picks for delete
   using ( auth.uid() = user_id );
@@ -104,4 +156,31 @@ create policy "Users can insert own weekly picks."
   with check ( auth.uid() = user_id );
 create policy "Users can update own weekly picks."
   on user_weekly_picks for update
-  using ( auth.uid() = user_id );
+  using ( auth.uid() = user_id )
+  with check ( auth.uid() = user_id );
+
+-- Prevent users from modifying is_correct and other sensitive fields
+create or replace function public.handle_user_weekly_picks_update()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if (auth.role() = 'authenticated') then
+    if (
+      new.is_correct is distinct from old.is_correct or
+      new.user_id is distinct from old.user_id or
+      new.game_id is distinct from old.game_id or
+      new.created_at is distinct from old.created_at
+    ) then
+      raise exception 'Modification of restricted weekly pick fields is not allowed';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+create trigger on_user_weekly_picks_update
+  before update on public.user_weekly_picks
+  for each row execute function public.handle_user_weekly_picks_update();
